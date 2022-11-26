@@ -19,13 +19,13 @@ const record: Record<string, number> = {
 }
 
 const isNumber = (s: string) => /\d/.test(s)
+const isLetter = (s: string) => /[a-z]/.test(s)
 
 const getContinuousNumber = (start: number, originalStr: string) => {
     let index = start
     while(isNumber(originalStr[index])) {
         index++
     }
-    
     
     let result = originalStr.slice(start, index)
     let length = index - start
@@ -53,7 +53,7 @@ const chineseNumberHandler = (start: number, originalStr: string) => {
         index++
     }
     
-    let result = originalStr.slice(start, index)
+    let result = originalStr.slice(start, index === start ? 1 : index)
 
     return {
         length: index - start,
@@ -90,7 +90,6 @@ const sortHandler = (prev: string, cur: string) => {
 
         const res = chineseNumberCompare(str1, str2)
         if(res!==null && res !== 0) return res
-
         if(str1 === str2) {
             start1 += (step1 + 1)
             start2 += (step2 + 1)
@@ -103,11 +102,10 @@ const sortHandler = (prev: string, cur: string) => {
             return -1
         } else if (isNumber(str2)) {
             return 1
-        } else {
-            if(chineseNumber.includes(str1) && chineseNumber.includes(str2)) {
+        } else {if(chineseNumber.includes(str1) && chineseNumber.includes(str2)) {
                 return record[str1] - record[str2]
             } else {
-                return str1 > str2 ? 1 : -1
+                    return str1 > str2 ? 1 : -1
             }
         }
     }
