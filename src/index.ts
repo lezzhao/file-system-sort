@@ -1,7 +1,16 @@
 import { ChineseNumberCompare, numberCompare, specSymbolCompare } from "./handler"
 
-export function sortHandler(list: string[]) {
-    list.sort((prev: string, cur: string) => {
+export function sortHandler<T = string>(list: T[], key?: keyof T): T[] {
+    if(typeof list[0] !== 'string' && !key) return list
+    list.sort((p: T, c: T) => {
+        let prev, cur
+        if(typeof p === 'string') {
+            prev = p as string
+            cur = c as string
+        } else {
+            prev = p[key!] as string
+            cur = c[key!] as string
+        }
         const len1 = prev.length
         const len2 = cur.length
         let s1 = 0
