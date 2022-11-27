@@ -1,9 +1,9 @@
 import { expect, it } from 'vitest'
-import { sortHandler } from '../src'
+import { sortUtil } from '../src'
 import { arr } from './fixture'
 
 it('test', () => {
-    arr.map(a => sortHandler(a))
+    arr.map(a => sortUtil(a))
     expect(arr).toMatchInlineSnapshot(`
       [
         [
@@ -104,7 +104,7 @@ it('test', () => {
 it('test1', () => {
     const arr = ['1d', ' 比赛', '七上', '11', '1a', '十', '第一章', '八下', 'ashi', '第三章', '2十', '200', '第二章', '1', 'a比赛', '101', '10']
 
-    expect(sortHandler(arr)).toMatchInlineSnapshot(`
+    expect(sortUtil(arr)).toMatchInlineSnapshot(`
       [
         " 比赛",
         "1",
