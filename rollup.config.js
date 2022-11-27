@@ -1,27 +1,31 @@
-import esbuild from 'rollup-plugin-esbuild'
 import dts from 'rollup-plugin-dts'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import json from '@rollup/plugin-json'
 import alias from '@rollup/plugin-alias'
+import esbuild from 'rollup-plugin-esbuild'
+import babel from '@rollup/plugin-babel'
+import json from '@rollup/plugin-json'
+import typescript from 'rollup-plugin-typescript2'
 
 const entries = [
   'src/index.ts',
 ]
 
 const plugins = [
-  alias({
-    entries: [
-      { find: /^node:(.+)$/, replacement: '$1' },
-    ],
+  babel({
+    babelrc: false,
+    babelHelpers: 'bundled',
+    presets: [['env', { modules: false }]]
   }),
   resolve({
     preferBuiltins: true,
   }),
+  alias(),
   json(),
+  typescript(),
   commonjs(),
   esbuild({
-    target: 'node14',
+    minify: process.env.NODE_ENV === 'production'
   }),
 ]
 

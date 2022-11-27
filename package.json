@@ -1,17 +1,23 @@
 {
   "name": "unplugin-sort-string",
-  "version": "1.0.0",
+  "version": "0.1.6",
   "type": "module",
+  "packageManager": "pnpm@7.0.1",
   "description": "a tool for sort array by string, number > digit > string",
-  "author": "",
+  "author": "lezhao",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/levZhao/unplugin-sort-string"
   },
   "keywords": [
-    "utils"
+    "utils",
+    "sort"
   ],
+  "sideEffects": false,
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "index.d.ts",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -19,25 +25,28 @@
       "import": "./dist/index.mjs"
     }
   },
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "index.d.ts",
   "files": [
     "dist",
     "*.d.ts"
   ],
   "scripts": {
-    "build": "rollup -c",
+    "build": "cross-env NODE_ENV=production rollup -c",
+    "dev": "cross-env NODE_ENV=development rollup -c --watch",
     "test": "vitest"
   },
   "devDependencies": {
+    "@babel/core": "^7.20.2",
     "@rollup/plugin-alias": "^4.0.2",
+    "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^23.0.2",
     "@rollup/plugin-json": "^5.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.15.15",
     "rollup": "^3.5.0",
     "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-esbuild": "^5.0.0",
+    "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^4.9.3",
     "vitest": "^0.25.3"
   }
