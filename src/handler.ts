@@ -7,10 +7,10 @@ interface CompareInfo {
 // handler space， space has highest weight
 export const specSymbolCompare = (str1: string, str2: string) => {
     if (str1 === ' ') {
-        return 1
+        return -1
     }
     if (str2 === ' ') {
-        return -1
+        return 1
     }
     return 0
 }
