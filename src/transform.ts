@@ -73,7 +73,7 @@ export function ChineseToDigit(str: string) {
     if (len === 1) return relationMap[target] <= 10 ? relationMap[target] : -1
 
     if(target.startsWith('十')) target = '一' + target
-
+    len = target.length
     let start = 0
     let result = 0
     while (start < len) {
