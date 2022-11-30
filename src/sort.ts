@@ -1,7 +1,8 @@
-import { ChineseNumberCompare, numberCompare, specSymbolCompare } from "./handler"
+import { ChineseNumberCompare, letterCompare, numberCompare, specSymbolCompare } from "./handler"
 
 export function sortUtil<T = string>(list: T[], key?: keyof T): T[] {
     if(typeof list[0] !== 'string' && !key) return list
+    if(list.length <= 1) return list
     list.sort((p: T, c: T) => {
         let prev, cur
         if(typeof p === 'string') {
@@ -35,6 +36,11 @@ export function sortUtil<T = string>(list: T[], key?: keyof T): T[] {
                 continue
             }
 
+            const res = letterCompare(str1, str2)
+            if(res !== 0)  {
+                return res
+            }
+
             const res3 = ChineseNumberCompare({ index: s1, originalStr: prev }, { index: s2, originalStr: cur })
             if(res3 !== 0 && typeof res3 === 'number') {
                 return res3
@@ -49,8 +55,9 @@ export function sortUtil<T = string>(list: T[], key?: keyof T): T[] {
                 s2++
                 continue
             }
-
-            return str1 > str2 ? 1 : -1
+            // console.log(str1, str2, str1.localeCompare(str2, 'zh') )
+            return str1.localeCompare(str2, 'zh') 
+            // return str1 > str2 ? 1 : -1
         }
         return (len1 - s1) - (len2 - s2)
     })

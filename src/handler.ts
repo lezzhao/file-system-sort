@@ -33,8 +33,8 @@ export const numberCompare = (prev: CompareInfo, cur: CompareInfo) => {
             return { step: l1 }
         } else {
             // judge whether is pure number，if it is, sotr before
-            if(l1 + prev.index >= prev.originalStr.length && l2+ cur.index < cur.originalStr.length) return -1
-            if(l2+ cur.index >= cur.originalStr.length && l1 + prev.index < prev.originalStr.length) return 1
+            if (l1 + prev.index >= prev.originalStr.length && l2 + cur.index < cur.originalStr.length) return -1
+            if (l2 + cur.index >= cur.originalStr.length && l1 + prev.index < prev.originalStr.length) return 1
             return Number(res1![0]) - Number(res2![0])
         }
     } else if (isNumber(prevStr[0])) {
@@ -45,6 +45,20 @@ export const numberCompare = (prev: CompareInfo, cur: CompareInfo) => {
         return 0
     }
 }
+
+const isLetter = (s: string) => /[a-zA-Z]/.test(s)
+export const letterCompare = (p: string, c: string) => {
+    if (isLetter(p) && isLetter(c)) {
+        return p.localeCompare(c)
+    } else if (isLetter(p)) {
+        return -1
+    } else if (isLetter(c)) {
+        return 1
+    } else {
+        return 0
+    }
+}
+
 // get continuous chinese number string
 const getContinuousChineseNumber = (start: number, originalStr: string) => {
     let index = start
@@ -60,10 +74,17 @@ const getContinuousChineseNumber = (start: number, originalStr: string) => {
 export const ChineseNumberCompare = (prev: CompareInfo, cur: CompareInfo) => {
     const prevStr = getContinuousChineseNumber(prev.index, prev.originalStr)
     const curStr = getContinuousChineseNumber(cur.index, cur.originalStr)
-    if (!isValidChineseNumber(prevStr) || !isValidChineseNumber(curStr)) return 0
+    if (isValidChineseNumber(prevStr) && isValidChineseNumber(curStr)) {
+        const p1 = ChineseToDigit(prevStr)
+        const p2 = ChineseToDigit(curStr)
 
-    const p1 = ChineseToDigit(prevStr)
-    const p2 = ChineseToDigit(curStr)
+        return p1 - p2 === 0 ? { step: prevStr.length + 1 } : p1 - p2
+    } else if (isValidChineseNumber(prevStr)) {
+        return -1
+    } else if (isValidChineseNumber(curStr)) {
+        return 1
+    } else {
+        return 0
+    }
 
-    return p1 - p2 === 0 ? { step: prevStr.length + 1 } : p1 - p2
 }
