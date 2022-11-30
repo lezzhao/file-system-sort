@@ -55,7 +55,6 @@ export function sortUtil<T = string>(list: T[], key?: keyof T): T[] {
                 s2++
                 continue
             }
-            // console.log(str1, str2, str1.localeCompare(str2, 'zh') )
             return str1.localeCompare(str2, 'zh') 
             // return str1 > str2 ? 1 : -1
         }
