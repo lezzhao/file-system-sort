@@ -78,7 +78,7 @@ export const ChineseNumberCompare = (prev: CompareInfo, cur: CompareInfo) => {
         const p1 = ChineseToDigit(prevStr)
         const p2 = ChineseToDigit(curStr)
 
-        return p1 - p2 === 0 ? { step: prevStr.length + 1 } : p1 - p2
+        return p1 - p2 === 0 ? { step: prevStr.length } : p1 - p2
     } else if (isValidChineseNumber(prevStr)) {
         return -1
     } else if (isValidChineseNumber(curStr)) {
