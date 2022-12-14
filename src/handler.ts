@@ -1,9 +1,6 @@
 import { ChineseToDigit, isValidChineseNumber } from "./transform"
+import { CompareInfo } from "./type"
 
-interface CompareInfo {
-    index: number
-    originalStr: string
-}
 // handler space， space has highest weight
 export const specSymbolCompare = (str1: string, str2: string) => {
     if (str1 === ' ') {

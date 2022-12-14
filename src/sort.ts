@@ -1,9 +1,5 @@
 import { ChineseNumberCompare, letterCompare, numberCompare, specSymbolCompare } from "./handler"
-
-type SortOptions<T> = {
-    key?: keyof T,
-    ignoreCase?: boolean
-}
+import { SortOptions } from "./type"
 
 export function sortUtil<T = string>(list: T[], options?: SortOptions<T>): T[] {
     if (typeof list[0] !== 'string' && !options?.key) return list
