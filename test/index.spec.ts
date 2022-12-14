@@ -2,7 +2,7 @@ import { expect, it } from 'vitest'
 import { sortUtil } from '../src'
 import { arr } from './fixture'
 
-it('test', () => {
+it.skip('test', () => {
   arr.map(a => sortUtil(a))
   expect(arr).toMatchInlineSnapshot(`
     [
@@ -160,17 +160,14 @@ it.skip('test2', () => {
 
 it('test3', () => {
   const arr = [
-    '七上', '八上', '八中', '八下', '七中', '七下'
+    'Abd', 'abc', 'acb',
   ]
 
-  expect(sortUtil(arr)).toMatchInlineSnapshot(`
+  expect(sortUtil(arr, { ignoreCase: true })).toMatchInlineSnapshot(`
     [
-      "七上",
-      "七下",
-      "七中",
-      "八上",
-      "八下",
-      "八中",
+      "abc",
+      "Abd",
+      "acb",
     ]
   `)
 })
