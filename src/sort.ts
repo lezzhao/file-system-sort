@@ -1,10 +1,11 @@
 import { ChineseNumberCompare, letterCompare, numberCompare, specSymbolCompare } from "./handler"
 
-// TODO add fileld 'ignore'
-export function sortUtil<T = string>(list: T[], options?: {
+type SortOptions<T> = {
     key?: keyof T,
     ignoreCase?: boolean
-}): T[] {
+}
+
+export function sortUtil<T = string>(list: T[], options?: SortOptions<T>): T[] {
     if (typeof list[0] !== 'string' && !options?.key) return list
     if (list.length <= 1) return list
     list.sort((p: T, c: T) => {
