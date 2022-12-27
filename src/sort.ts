@@ -1,4 +1,4 @@
-import { ChineseNumberCompare, letterCompare, numberCompare, specSymbolCompare } from "./handler"
+import { ChineseNumberCompare, letterCompare, numberCompare, specialCharacterCompare } from "./handler"
 import { SortOptions } from "./type"
 
 export function sortUtil<T = string>(list: T[], options?: SortOptions<T>): T[] {
@@ -26,7 +26,7 @@ export function sortUtil<T = string>(list: T[], options?: SortOptions<T>): T[] {
             }
 
             if (str1 !== str2) {
-                const symbolRes = specSymbolCompare(str1, str2)
+                const symbolRes = specialCharacterCompare(str1, str2)
                 if (symbolRes !== 0) {
                     return symbolRes
                 }

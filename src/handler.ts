@@ -1,16 +1,6 @@
 import { ChineseToDigit, isValidChineseNumber } from "./transform"
 import { CompareInfo } from "./type"
 
-// handler space， space has highest weight
-export const specSymbolCompare = (str1: string, str2: string) => {
-    if (str1 === ' ') {
-        return -1
-    }
-    if (str2 === ' ') {
-        return 1
-    }
-    return 0
-}
 // regexp for mathc continuous number
 const numberRe = /\d+/
 // check str whether is valid number string
@@ -84,4 +74,25 @@ export const ChineseNumberCompare = (prev: CompareInfo, cur: CompareInfo) => {
         return 0
     }
 
+}
+
+// handler special character, space has highest weight, others is lowest
+const isSpecialCharacter = /[^\u4e00-\u9fa5A-Za-z0-9]/
+const isSpace= /\s/
+export const specialCharacterCompare = (p: string, c: string) => {
+    if (isSpace.test(p)) {
+        return -1
+    }
+    if (isSpace.test(c)) {
+        return 1
+    }
+    if (isSpecialCharacter.test(p) && isSpecialCharacter.test(c)) {
+        return p > c ? 1 : -1
+    } else if (isSpecialCharacter.test(p)) {
+        return 1
+    } else if (isSpecialCharacter.test(c)) {
+        return -1
+    } else {
+        return 0
+    }
 }

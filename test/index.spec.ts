@@ -2,7 +2,7 @@ import { expect, it } from 'vitest'
 import { sortUtil } from '../src'
 import { arr } from './fixture'
 
-it.skip('test', () => {
+it('test', () => {
   arr.map(a => sortUtil(a))
   expect(arr).toMatchInlineSnapshot(`
     [
@@ -98,8 +98,8 @@ it.skip('test', () => {
       ],
       [
         "2",
-        "1（2）",
         "1大视频",
+        "1（2）",
         "2分多",
         "test-776681",
       ],
@@ -108,7 +108,7 @@ it.skip('test', () => {
 })
 
 
-it.skip('test1', () => {
+it('test1', () => {
   const arr = ['1d', ' 比赛', '七上', '11', '1a', '十', '第一章', '八下', 'ashi', '第三章', '2十', '200', '第二章', '1', 'a比赛', '101', '10']
 
   expect(sortUtil(arr)).toMatchInlineSnapshot(`
@@ -134,26 +134,22 @@ it.skip('test1', () => {
   `)
 })
 
-it.skip('test2', () => {
+it('test2', () => {
   const arr = [
-    "8年纪",
-    "十",
-    "第 二 章",
-    "第三章",
-    "七上",
-    "八下",
-    "第一章",
+    "2",
+    "1（2）",
+    "1大视频",
+    "2分多",
+    "test-776681",
   ]
 
   expect(sortUtil(arr)).toMatchInlineSnapshot(`
     [
-      "8年纪",
-      "七上",
-      "八下",
-      "十",
-      "第 二 章",
-      "第一章",
-      "第三章",
+      "2",
+      "1大视频",
+      "1（2）",
+      "2分多",
+      "test-776681",
     ]
   `)
 })
@@ -168,6 +164,33 @@ it('test3', () => {
       "abc",
       "Abd",
       "acb",
+    ]
+  `)
+})
+
+it('test4', () => {
+  const arr = [
+    '1大视频', '1（2）', '.', '2', '2分多', 'test-776681', 'Abd', 'abc', 'acb', '-', '你们好', '大家好', '_', '+', '*', '%'
+  ]
+
+  expect(sortUtil(arr, { ignoreCase: true })).toMatchInlineSnapshot(`
+    [
+      "2",
+      "1大视频",
+      "1（2）",
+      "2分多",
+      "abc",
+      "Abd",
+      "acb",
+      "test-776681",
+      "大家好",
+      "你们好",
+      "%",
+      "*",
+      "+",
+      "-",
+      ".",
+      "_",
     ]
   `)
 })
