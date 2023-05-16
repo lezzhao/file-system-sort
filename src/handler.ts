@@ -3,10 +3,12 @@ import { CompareInfo } from "./type"
 
 // regexp for mathc continuous number
 const numberRe = /\d+/
+const notNumberRe = /\D/
 // check str whether is valid number string
 export const isNumber = (s: string) => numberRe.test(s)
 // number compare handler
 export const numberCompare = (prev: CompareInfo, cur: CompareInfo) => {
+    console.log(prev, cur)
     const prevStr = prev.originalStr.slice(prev.index)
     const curStr = cur.originalStr.slice(cur.index)
     if (isNumber(prevStr[0]) && isNumber(curStr[0])) {
@@ -15,13 +17,18 @@ export const numberCompare = (prev: CompareInfo, cur: CompareInfo) => {
 
         const l1 = res1![0]!.length
         const l2 = res2![0]!.length
-
+        console.log(l1, l2, res1, res2);
+        
         if (res1![0] === res2![0]) {
             return { step: l1 }
         } else {
             // judge whether is pure number，if it is, sotr before
-            if (l1 + prev.index >= prev.originalStr.length && l2 + cur.index < cur.originalStr.length) return -1
-            if (l2 + cur.index >= cur.originalStr.length && l1 + prev.index < prev.originalStr.length) return 1
+            if(!notNumberRe.test(prev.originalStr) && notNumberRe.test(cur.originalStr)) {
+                return -1
+            } 
+              if(!notNumberRe.test(cur.originalStr) && notNumberRe.test(prev.originalStr)) {
+                return 1
+            }
             return Number(res1![0]) - Number(res2![0])
         }
     } else if (isNumber(prevStr[0])) {
