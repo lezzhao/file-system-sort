@@ -33,7 +33,8 @@
     "build": "cross-env NODE_ENV=production rollup -c",
     "dev": "cross-env NODE_ENV=development rollup -c --watch",
     "test": "vitest",
-    "release": "bumpp && npm publish"
+    "release": "bumpp && npm publish",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
