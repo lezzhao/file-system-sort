@@ -25,7 +25,8 @@ const plugins = [
   typescript(),
   commonjs(),
   esbuild({
-    minify: process.env.NODE_ENV === 'production'
+    minify: process.env.NODE_ENV === 'production',
+    logLevel: "silent"
   }),
 ]
 
