@@ -1,6 +1,6 @@
 {
   "name": "unplugin-sort-string",
-  "version": "0.2.7",
+  "version": "0.2.10",
   "type": "module",
   "packageManager": "pnpm@7.0.1",
   "description": "a tool for sort array by string, number > digit > string",
@@ -32,7 +32,9 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production rollup -c",
     "dev": "cross-env NODE_ENV=development rollup -c --watch",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "bumpp && npm publish",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@babel/core": "^7.20.2",
@@ -41,6 +43,7 @@
     "@rollup/plugin-commonjs": "^23.0.2",
     "@rollup/plugin-json": "^5.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "bumpp": "^9.1.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.15.15",
     "rollup": "^3.5.0",
