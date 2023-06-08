@@ -6,7 +6,6 @@ import esbuild from 'rollup-plugin-esbuild'
 import babel from '@rollup/plugin-babel'
 import json from '@rollup/plugin-json'
 import typescript from 'rollup-plugin-typescript2'
-import strip from '@rollup/plugin-strip'
 
 const entries = [
   'src/index.ts',
@@ -21,14 +20,13 @@ const plugins = [
   resolve({
     preferBuiltins: true,
   }),
-  strip(),
   alias(),
   json(),
   typescript(),
   commonjs(),
   esbuild({
     minify: process.env.NODE_ENV === 'production',
-    logLevel: "silent"
+    drop: ["console"]
   }),
 ]
 
