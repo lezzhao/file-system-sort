@@ -1,6 +1,6 @@
 {
   "name": "unplugin-sort-string",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "type": "module",
   "packageManager": "pnpm@7.0.1",
   "description": "a tool for sort array by string, number > digit > string",
@@ -43,6 +43,7 @@
     "@rollup/plugin-commonjs": "^23.0.2",
     "@rollup/plugin-json": "^5.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-strip": "^3.0.2",
     "bumpp": "^9.1.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.15.15",
