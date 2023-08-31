@@ -1,5 +1,5 @@
-import { isValidChineseNumber } from ".."
 import {  alphabetComparator, getContinuousChineseNumber, singleChineseNumberComparator, singleDigitComparator, specialCharacterComparator } from "./comparator"
+import { isValidChineseNumber } from "./transform"
 import { SortOptions } from "./type"
 import { findDiffIndex, handleStr, isString, processComparator } from "./util"
 
