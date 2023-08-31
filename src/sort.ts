@@ -1,70 +1,44 @@
-import { ChineseNumberCompare, letterCompare, numberCompare, specialCharacterCompare } from "./handler"
+import { isValidChineseNumber } from ".."
+import {  alphabetComparator, getContinuousChineseNumber, singleChineseNumberComparator, singleDigitComparator, specialCharacterComparator } from "./comparator"
 import { SortOptions } from "./type"
+import { findDiffIndex, handleStr, isString, processComparator } from "./util"
 
-export function sortUtil<T = string>(list: T[], options?: SortOptions<T>): T[] {
-    if (typeof list[0] !== 'string' && !options?.key) return list
-    if (list.length <= 1) return list
-    list.sort((p: T, c: T) => {
-        let prev, cur
-        if (typeof p === 'string') {
-            prev = p as string
-            cur = c as string
-        } else {
-            prev = p[options?.key!] as string
-            cur = c[options?.key!] as string
+
+export function sort<T = string>(source: T[], options?: SortOptions<T>): T[] {
+    if(source.length <= 1) return source
+    return source.sort((p: T, c: T) => {
+        let prev = isString(p) ? p as string : p[options?.key!] as string
+        let cur = isString(c) ? c as string : c[options?.key!] as string
+        if(options?.ignoreCase) {
+            prev = prev.toLowerCase()
+            cur = cur.toLowerCase()
         }
-        const len1 = prev.length
-        const len2 = cur.length
-        let s1 = 0
-        let s2 = 0
-        while (s1 < len1 && s2 < len2) {
-            let str1 = prev[s1]
-            let str2 = cur[s2]
-            if (options?.ignoreCase) {
-                str1 = str1.toLowerCase()
-                str2 = str2.toLowerCase()
-            }
-
-            if (str1 !== str2) {
-                const symbolRes = specialCharacterCompare(str1, str2)
-                if (symbolRes !== 0) {
-                    return symbolRes
-                }
-            }
-
-            const res2 = numberCompare({ index: s1, originalStr: prev }, { index: s2, originalStr: cur })
-            if (res2 !== 0 && typeof res2 === 'number') {
-                return res2
-            } else if (res2 !== 0) {
-                s1 += (res2 as { step: number }).step
-                s2 += (res2 as { step: number }).step
-                continue
-            }
-
-            const res = letterCompare(str1, str2)
-            if (res !== 0) {
-                return res
-            }
-
-            const res3 = ChineseNumberCompare({ index: s1, originalStr: prev }, { index: s2, originalStr: cur })
-            if (res3 !== 0 && typeof res3 === 'number') {
-                return res3
-            } else if (res3 !== 0) {
-                s1 += (res3 as { step: number }).step
-                s2 += (res3 as { step: number }).step
-                continue
-            }
-
-            if (str1 === str2) {
-                s1++
-                s2++
-                continue
-            }
-            return str1.localeCompare(str2, 'zh')
-            // return str1 > str2 ? 1 : -1
-        }
-        return (len1 - s1) - (len2 - s2)
+        return sortHandler(prev, cur)
     })
+}
 
-    return list
+function sortHandler(p: string, c: string) {
+    const [_p, _c] = handleStr(p, c)
+    const index = findDiffIndex(_p, _c)
+    let compareP = _p.slice(index, index + 1)
+    let compareC = _c.slice(index, index + 1)
+    if(index !== 0) { 
+        const a = _p.slice(index - 1, index)
+        const b = _c.slice(index - 1, index)
+        if(isValidChineseNumber(a) && isValidChineseNumber(b)) {
+            if(isValidChineseNumber(compareP) && !isValidChineseNumber(compareC)) {
+                return 1
+            } else if(!isValidChineseNumber(compareP) && isValidChineseNumber(compareC)) {
+                return -1
+            }
+        }
+    }
+    if(isValidChineseNumber(compareP) && isValidChineseNumber(compareC)) {
+        compareP = getContinuousChineseNumber(index, _p) 
+        compareC = getContinuousChineseNumber(index, _c)
+    }
+    return processComparator({
+        comparators: [ specialCharacterComparator, singleDigitComparator, alphabetComparator, singleChineseNumberComparator ],
+        params: [compareP, compareC]
+    })
 }

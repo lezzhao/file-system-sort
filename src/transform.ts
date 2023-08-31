@@ -55,7 +55,7 @@ const cnZeroHandler = (str: string) => {
 }
 // validate Chinese number string 
 export const isValidChineseNumber = (s: string) => {
-    return s && s.split('').every(i => singularKeys.includes(i) || evenKeys.includes(i))
+    return Boolean(s) && s.split('').every(i => singularKeys.includes(i) || evenKeys.includes(i))
 }
 /**
  * transform Chinese number to digit
