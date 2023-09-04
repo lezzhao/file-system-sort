@@ -30,7 +30,7 @@
     "*.d.ts"
   ],
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c",
+    "build": "rimraf dist && cross-env NODE_ENV=production rollup -c",
     "dev": "cross-env NODE_ENV=development rollup -c --watch",
     "test": "vitest",
     "release": "bumpp && npm publish",
@@ -46,6 +46,7 @@
     "bumpp": "^9.1.0",
     "cross-env": "^7.0.3",
     "esbuild": "^0.15.15",
+    "rimraf": "^5.0.1",
     "rollup": "^3.5.0",
     "rollup-plugin-dts": "^5.0.0",
     "rollup-plugin-esbuild": "^5.0.0",
