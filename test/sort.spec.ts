@@ -178,11 +178,11 @@ describe('sort', () => {
         expect(sort(arr, { ignoreCase: true })).toMatchInlineSnapshot(`
           [
             "_",
-            ".",
             "-",
-            "+",
+            ".",
             "*",
             "%",
+            "+",
             "1（2）",
             "1大视频",
             "2",
@@ -199,22 +199,16 @@ describe('sort', () => {
 
     it('test5', () => {
         const arr = [
-          "第 二 章",
-          "第一章",
-          "七上",
-          "八下",
-          "第三章",
-          "比赛",
+          "1（1）.jpg",
+          "1.mp4",
+          "001（1）.doc",
         ]
 
         expect(sort(arr, { ignoreCase: true })).toMatchInlineSnapshot(`
           [
-            "七上",
-            "八下",
-            "比赛",
-            "第 二 章",
-            "第一章",
-            "第三章",
+            "1.mp4",
+            "001（1）.doc",
+            "1（1）.jpg",
           ]
         `)
     })

@@ -10,7 +10,7 @@ export const specialCharacterComparator = (p: string, c: string) => {
         return 1
     }
     if (isSpecialCharacter.test(p) && isSpecialCharacter.test(c)) {
-        return p > c ? -1 : 1
+        return 0
     } else if (isSpecialCharacter.test(p)) {
         return -1
     } else if (isSpecialCharacter.test(c)) {

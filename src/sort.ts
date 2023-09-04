@@ -20,6 +20,7 @@ export function sort<T = string>(source: T[], options?: SortOptions<T>): T[] {
 function sortHandler(p: string, c: string) {
     const [_p, _c] = handleStr(p, c)
     const index = findDiffIndex(_p, _c)
+    
     let compareP = _p.slice(index, index + 1)
     let compareC = _c.slice(index, index + 1)
     if(index !== 0) { 
