@@ -202,6 +202,8 @@ describe('sort', () => {
           "1（1）.jpg",
           "1.mp4",
           "001（1）.doc",
+          '193930000',
+          '19393ooo'
         ]
 
         expect(sort(arr, { ignoreCase: true })).toMatchInlineSnapshot(`
@@ -209,6 +211,8 @@ describe('sort', () => {
             "1.mp4",
             "001（1）.doc",
             "1（1）.jpg",
+            "19393ooo",
+            "193930000",
           ]
         `)
     })

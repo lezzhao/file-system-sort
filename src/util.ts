@@ -50,11 +50,16 @@ function transformNumber(str: string) {
     return arr
 }
 
-// 处理以0开头的数字, 当连续为0没有连接别的数字，转换为0
-const handleZeroRE = /(?<!\d)0+(\d?)/g
+// 处理连续为0并且前面没有数字的字符，转换为0
+const handleZeroRE = /(\D)0+(\d?)/g
 export function handleStr(p: string, c: string) {
-    p = p.replaceAll(handleZeroRE, (_k, t) => t || 0)
-    c = c.replaceAll(handleZeroRE, (_k, t) => t || 0)
+    p = p
+        .replace(/^0+/, '') // 处理以0开头的数字
+        .replaceAll(handleZeroRE, (_k, p, t) => `${p}${t || 0}`)
+    c = c
+        .replace(/^0+/, '')
+        .replaceAll(handleZeroRE, (_k, p, t) => `${p}${t || 0}`)
+    
     const arr1 = transformNumber(p)
     const arr2 = transformNumber(c)
     const len = Math.max(arr1.length, arr2.length)
