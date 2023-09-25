@@ -1,6 +1,6 @@
 {
   "name": "unplugin-sort-string",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "type": "module",
   "packageManager": "pnpm@7.0.1",
   "description": "a tool for sort array by string, number > digit > string",
