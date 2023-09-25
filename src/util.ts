@@ -55,10 +55,10 @@ const handleZeroRE = /(\D)0+(\d?)/g
 export function handleStr(p: string, c: string) {
     p = p
         .replace(/^0+/, '') // 处理以0开头的数字
-        .replaceAll(handleZeroRE, (_k, p, t) => `${p}${t || 0}`)
+        .replace(handleZeroRE, (_k, p, t) => `${p}${t || 0}`)
     c = c
         .replace(/^0+/, '')
-        .replaceAll(handleZeroRE, (_k, p, t) => `${p}${t || 0}`)
+        .replace(handleZeroRE, (_k, p, t) => `${p}${t || 0}`)
     
     const arr1 = transformNumber(p)
     const arr2 = transformNumber(c)
@@ -76,7 +76,7 @@ export function handleStr(p: string, c: string) {
             map[arr2[i].join('-')] = '1'
         }
     }
-    const _c = c.replaceAll(/\d+/g, (k, i) => map[k + '-' + i])
-    const _p = p.replaceAll(/\d+/g, (k, i) => map[k + '-' + i])
+    const _c = c.replace(/\d+/g, (k, i) => map[k + '-' + i])
+    const _p = p.replace(/\d+/g, (k, i) => map[k + '-' + i])
     return [_p, _c]
 }
