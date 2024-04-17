@@ -1,6 +1,6 @@
 {
   "name": "file-system-sort",
-  "version": "0.0.1",
+  "version": "0.0.2-beta.0",
   "type": "module",
   "packageManager": "pnpm@7.0.1",
   "description": "a tool for sort array by string, number > digit > string",
